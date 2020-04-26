@@ -21,8 +21,16 @@ class enderecos extends Model {
       },
       {
         sequelize,
+        modelName: "endereco",
       }
     );
+  }
+  static associate(models) {
+    this.belongsTo(models.users, {
+      foreignKey: "user_id",
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    });
   }
 }
 

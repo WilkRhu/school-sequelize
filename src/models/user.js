@@ -12,11 +12,10 @@ class users extends Model {
         tipo: DataTypes.STRING,
         data_nascimento: DataTypes.STRING,
         token: DataTypes.TEXT,
-        created_at: DataTypes.DATE,
-        updatade_at: DataTypes.DATE,
       },
       {
         sequelize,
+        modelName: "users",
       }
     );
     users.beforeCreate((user) => {
