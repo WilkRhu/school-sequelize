@@ -60,7 +60,16 @@ const createEnderecoUser = async (endereco, id) => {
 
 const store = async (req, res) => {
   try {
-    const { user, endereco } = req.body;
+    const user = req.body;
+    const endereco = {
+      rua: user.rua,
+      numero: user.numero,
+      cidade: user.cidade,
+      bairro: user.bairro,
+      estado: user.estado,
+      telefone: user.telefone,
+      referencia: user.referencia
+    }
     const { error, value } = userValidation.validate({
       nome: user.nome,
       login: user.login,
@@ -68,7 +77,7 @@ const store = async (req, res) => {
       email: user.email,
       tipo: user.tipo,
       data_nascimento: user.data_nascimento,
-      token: createToken(user),
+      token: createToken(user)
     });
     if (!error) {
       const users = await User.create(value);

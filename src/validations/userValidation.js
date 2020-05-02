@@ -10,6 +10,14 @@ const userValidation = Joi.object({
   data_nascimento: Joi.string().required(),
   tipo: Joi.string().required(),
   token: Joi.string().optional(),
+  usersId: Joi.number().optional(),
+  rua: Joi.string().optional(),
+  numero: Joi.string().optional(),
+  cidade: Joi.string().optional(),
+  bairro: Joi.string().optional(),
+  estado: Joi.string().optional(),
+  telefone: Joi.string().optional(),
+  referencia: Joi.string().optional(),
 });
 
 module.exports = userValidation;
