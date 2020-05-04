@@ -11,6 +11,11 @@ class users extends Model {
         senha: DataTypes.STRING,
         tipo: DataTypes.STRING,
         data_nascimento: DataTypes.STRING,
+        serie: DataTypes.STRING,
+        matricula: DataTypes.STRING,
+        responsavel_aluno_um: DataTypes.STRING,
+        responsavel_aluno_dois: DataTypes.STRING,
+        file: DataTypes.STRING,
         token: DataTypes.TEXT,
       },
       {

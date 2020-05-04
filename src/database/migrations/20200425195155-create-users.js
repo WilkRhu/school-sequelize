@@ -33,7 +33,24 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      serie: {
+        type: Sequelize.STRING,
+      },
+      
+      matricula: {
+        type: Sequelize.STRING,
+      },
+      responsavel_aluno_um: {
+        type: Sequelize.STRING,
+      },
 
+      responsavel_aluno_dois: {
+        type: Sequelize.STRING,
+      },
+
+      file: {
+        type: Sequelize.STRING,
+      },
       data_nascimento: {
         type: Sequelize.STRING,
         allowNull: false,

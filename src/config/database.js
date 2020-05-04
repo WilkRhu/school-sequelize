@@ -1,8 +1,8 @@
 
 module.exports = {
   dialect: "mysql",
-  host: "bdhost0040.servidorwebfacil.com",
-  username: "wilkcaet_school",
+  host: "srv120.prodns.com.br",
+  username: "wilkcaet_adm",
   password: "@wilk2020#",
   database: "wilkcaet_school",
   define: {

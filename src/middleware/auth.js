@@ -9,7 +9,11 @@ const auth = (req, res, next) => {
 
   jwt.verify(token_header, process.env.KEY_TOKEN, (err, decoded) => {
     if (err) return res.status(401).send({ error: "Token Inválido!" });
-    if (decoded.tipo == "admin") return next();
+    if (decoded.tipo == "admin") {
+      return next();
+    } else {
+      return res.status(401).json("Você não tem permissão para acessar essa rota!")
+    }
   });
 };
 

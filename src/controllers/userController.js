@@ -16,6 +16,7 @@ const showUserOne = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await User.findOne({ where: { id: id } });
+    user.senha = undefined;
     const endereco = await Endereco.findOne({ where: { user_id: id } });
     return res.status(200).json({ user, endereco });
   } catch (err) {
@@ -31,6 +32,7 @@ const showUser = async (req, res) => {
       endereco.push(await Endereco.findOne({ where: { user_id: user[i].id } }));
       user[i].senha = undefined;
     }
+    console.log(endereco);
     return res.status(200).json({ user, endereco });
   } catch (err) {
     return res.status(400).json(err.message);
@@ -60,6 +62,7 @@ const createEnderecoUser = async (endereco, id) => {
 
 const store = async (req, res) => {
   try {
+    const file = req.file.filename;
     const user = req.body;
     const endereco = {
       rua: user.rua,
@@ -68,16 +71,21 @@ const store = async (req, res) => {
       bairro: user.bairro,
       estado: user.estado,
       telefone: user.telefone,
-      referencia: user.referencia
-    }
+      referencia: user.referencia,
+    };
     const { error, value } = userValidation.validate({
       nome: user.nome,
       login: user.login,
       senha: user.senha,
       email: user.email,
       tipo: user.tipo,
+      serie: user.serie,
+      matricula: user.matricula,
+      responsavel_aluno_um: user.responsavel_aluno_um,
+      responsavel_aluno_dois: user.responsavel_aluno_dois,
+      file: file,
       data_nascimento: user.data_nascimento,
-      token: createToken(user)
+      token: createToken(user),
     });
     if (!error) {
       const users = await User.create(value);
@@ -94,7 +102,7 @@ const store = async (req, res) => {
 const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const { user } = req.body;
+    const user = req.body;
     await User.update(user, { where: { id: id } });
     return res.status(200).json(`O Usuário foi atualizado com sucesso!`);
   } catch (err) {
@@ -105,7 +113,16 @@ const updateUser = async (req, res) => {
 const updateEndereco = async (req, res) => {
   try {
     const { user_id } = req.params;
-    const { endereco } = req.body;
+    const user = req.body;
+    const endereco = {
+      rua: user.rua,
+      numero: user.numero,
+      cidade: user.cidade,
+      bairro: user.bairro,
+      estado: user.estado,
+      telefone: user.telefone,
+      referencia: user.referencia,
+    };
     await Endereco.update(endereco, { where: { user_id: user_id } });
     return res.status(200).json(`O Endereço foi atualizado com sucesso!`);
   } catch (err) {
