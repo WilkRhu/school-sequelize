@@ -16,5 +16,6 @@ routes.patch("/users/:id", authUser, upload.single(multiFile), userController.up
 routes.patch("/endUser/:user_id", authUser, userController.updateEndereco);
 routes.post("/logOn", userController.logOn);
 routes.delete("/users/:id", authUser, userController.deletUser);
+routes.put("/users/:id", authUser, multer(multiFile).single('file'), userController.updateFotoPerfil);
 
 module.exports = routes;
