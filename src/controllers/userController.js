@@ -12,6 +12,19 @@ const createToken = (user) => {
   );
 };
 
+const updateFotoPerfil = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const fileName = req.file.filename;
+    const fotoUser = await User.update({ file: fileName }, { where: {id: id }});
+    if (fotoUser) {
+      return res.status(200).json("Foto do usuário atualizado com o sucesso!");
+    }
+  } catch (err) {
+    return res.status(400).json(err);
+  }
+};
+
 const showUserOne = async (req, res) => {
   try {
     const { id } = req.params;
@@ -165,4 +178,5 @@ module.exports = {
   showUser,
   showUserOne,
   deletUser,
+  updateFotoPerfil,
 };
