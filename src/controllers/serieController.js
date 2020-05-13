@@ -1,7 +1,6 @@
 const Serie = require("../models/serie");
 const serieValidation = require("../validations/serieValidation");
 const SerieMateria = require("../models/serireMateria");
-const Mateira = require("../models/materia");
 
 const store = async (req, res) => {
   try {
