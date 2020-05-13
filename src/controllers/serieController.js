@@ -1,15 +1,28 @@
 const Serie = require("../models/serie");
 const serieValidation = require("../validations/serieValidation");
+const SerieMateria = require("../models/serireMateria");
+const Mateira = require("../models/materia");
+
 const store = async (req, res) => {
   try {
     const serie = req.body;
     const { error, value } = serieValidation.validate({
       nome: serie.nome,
       nome_professor: serie.nomeProfessor,
+      materia: serie.materia,
     });
     if (!error) {
-      const serie = await Serie.create(value);
-      return res.status(201).json(serie);
+      const serieCad = await Serie.create(value);
+      const serieMateria = async (item) => {
+        await SerieMateria.create({
+          serie_id: serieCad.id,
+          materia_id: item,
+        });
+      };
+      serie.materia.map((item) => {
+        serieMateria(item);
+      });
+      return res.status(201).json(serieCad);
     } else {
       return res.status(400).json(error.message);
     }
@@ -45,6 +58,7 @@ const update = async (req, res) => {
     return res.status(400).json(err.message);
   }
 };
+
 
 const deleting = async (req, res) => {
   try {
