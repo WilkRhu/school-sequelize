@@ -10,7 +10,7 @@ const show = async (req, res) => {
   }
 };
 
-const create = async (req, res) => {
+const store = async (req, res) => {
   try {
     const materia = req.body;
     const { error, value } = materiaValidation.validate({
@@ -57,7 +57,7 @@ const deleting = async (req, res) => {
 
 module.exports = {
   show,
-  create,
+  store,
   update,
   deleting,
 };

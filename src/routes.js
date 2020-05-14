@@ -7,6 +7,7 @@ const multer = require("multer");
 const multiFile = require("./middleware/multer");
 var upload = multer({ dest: "tmp/uploads/" });
 const authUser = require("./middleware/auth");
+const aulasController = require("./controllers/aulasController");
 
 //Rotas de usuários
 routes.get("/users/:id", authUser, userController.showUserOne);
@@ -35,9 +36,16 @@ routes.patch("/series/:id", authUser, serieController.update);
 routes.delete("/series/:id", authUser, serieController.deleting);
 
 //Rotas Matérias
-routes.post("/materias", materiaController.create);
+routes.post("/materias", materiaController.store);
 routes.get("/materias", materiaController.show);
 routes.patch("/materias/:id", materiaController.update);
 routes.delete("/materias/:id", materiaController.deleting);
+
+//Rotas Aulas
+routes.post("/aulas", aulasController.store);
+routes.get("/aulas", aulasController.show);
+routes.get("/aulas/:id", aulasController.showOne);
+routes.patch("/aulas/:id", aulasController.update);
+routes.delete("/aulas/:id", aulasController.deleting);
 
 module.exports = routes;
