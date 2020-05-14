@@ -2,49 +2,45 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("users", {
+    return queryInterface.createTable("estudante", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
       },
-      nome: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      login: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
 
-      email: {
-        type: Sequelize.STRING,
+      user_id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-      },
-
-      senha: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-
-      tipo: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      file: {
-        type: Sequelize.STRING,
-      },
-      token: {
-        type: Sequelize.TEXT,
-        allowNull: false,
+        references: {
+          model: "users",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },
+      serie: {
+        type: Sequelize.STRING,
+      },
 
+      matricula: {
+        type: Sequelize.STRING,
+      },
+      responsavel_aluno_um: {
+        type: Sequelize.STRING,
+      },
+      responsavel_aluno_dois: {
+        type: Sequelize.STRING,
+      },
+      data_nascimento: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       updated_at: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -53,6 +49,6 @@ module.exports = {
   },
 
   down: (queryInterface) => {
-    return queryInterface.dropTable("users");
+    return queryInterface.dropTable("estudante");
   },
 };
