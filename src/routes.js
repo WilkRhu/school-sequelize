@@ -3,6 +3,7 @@ const routes = express.Router();
 const userController = require("./controllers/userController");
 const serieController = require("./controllers/serieController");
 const materiaController = require("./controllers/materiaController");
+const estudantesController = require("./controllers/estudantesController");
 const multer = require("multer");
 const multiFile = require("./middleware/multer");
 var upload = multer({ dest: "tmp/uploads/" });
@@ -47,5 +48,11 @@ routes.get("/aulas", aulasController.show);
 routes.get("/aulas/:id", aulasController.showOne);
 routes.patch("/aulas/:id", aulasController.update);
 routes.delete("/aulas/:id", aulasController.deleting);
+
+//Rotas Estudantes
+routes.get("/estudantes", estudantesController.show);
+routes.get("/estudantes/:id", estudantesController.showOne);
+routes.patch("/estudantes/:id", estudantesController.update);
+routes.delete("/estudantes/:id", estudantesController.deleting);
 
 module.exports = routes;
