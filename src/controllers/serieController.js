@@ -7,7 +7,6 @@ const store = async (req, res) => {
     const serie = req.body;
     const { error, value } = serieValidation.validate({
       nome: serie.nome,
-      nome_professor: serie.nomeProfessor,
       materia: serie.materia,
     });
     if (!error) {

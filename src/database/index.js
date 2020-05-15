@@ -6,6 +6,8 @@ const Series = require("../models/serie");
 const Materias = require("../models/materia");
 const SerieMateria = require("../models/serireMateria");
 const Aulas = require("../models/aulas");
+const Estudantes = require("../models/estudante");
+const Professor = require("../models/professor");
 
 const connection = new Sequelize(dbConfig);
 User.init(connection);
@@ -17,5 +19,9 @@ SerieMateria.init(connection);
 SerieMateria.associate(connection.models);
 Aulas.init(connection);
 Aulas.associate(connection.models);
+Estudantes.init(connection);
+Estudantes.associate(connection.models);
+Professor.init(connection);
+Professor.associate(connection.models);
 
 module.exports = connection;

@@ -1,5 +1,7 @@
 const User = require("../models/user");
 const Endereco = require("../models/endereco");
+const Estudante = require("../models/estudante");
+const Professor = require("../models/professor");
 const userValidation = require("../validations/userValidation");
 const enderecoValidation = require("../validations/enderecoValidation");
 const bcrypt = require("bcryptjs");
@@ -14,9 +16,12 @@ const createToken = (user) => {
 
 const updateFotoPerfil = async (req, res) => {
   try {
-    const {id} = req.params;
+    const { id } = req.params;
     const fileName = req.file.filename;
-    const fotoUser = await User.update({ file: fileName }, { where: {id: id }});
+    const fotoUser = await User.update(
+      { file: fileName },
+      { where: { id: id } }
+    );
     if (fotoUser) {
       return res.status(200).json("Foto do usuário atualizado com o sucesso!");
     }
@@ -73,10 +78,44 @@ const createEnderecoUser = async (endereco, id) => {
   }
 };
 
+const createEstudante = async (user_id, serie_id, user) => {
+  try {
+    if (user.tipo == "estudante") {
+      await Estudante.create({
+        user_id: user_id,
+        serie_id: serie_id,
+        matricula: user.matricula,
+        responsavel_aluno_um: user.responsavel_aluno_um,
+        responsavel_aluno_dois: user.responsavel_aluno_dois,
+        data_nascimento: user.data_nascimento,
+      });
+      return "Estudante cadastrado(a) com sucesso!";
+    }
+  } catch (err) {
+    return "Erro ao cadastrar o estudante";
+  }
+};
+
+const createProfessor = async (user_id, materia_id, user) => {
+  try {
+    if (user.tipo == "professor") {
+      await Professor.create({
+        user_id: user_id,
+        materia_id: materia_id,
+      });
+      return "Professor cadastrado(a) com sucesso!";
+    }
+  } catch (err) {
+    return "Erro ao cadastrar o professor";
+  }
+};
+
 const store = async (req, res) => {
   try {
     const file = req.file.filename;
     const user = req.body;
+    const { serie_id, materia_id } = req.body;
+
     const endereco = {
       rua: user.rua,
       numero: user.numero,
@@ -89,26 +128,34 @@ const store = async (req, res) => {
     const { error, value } = userValidation.validate({
       nome: user.nome,
       login: user.login,
-      senha: user.senha,
       email: user.email,
+      senha: user.senha,
       tipo: user.tipo,
-      serie: user.serie,
-      matricula: user.matricula,
-      responsavel_aluno_um: user.responsavel_aluno_um,
-      responsavel_aluno_dois: user.responsavel_aluno_dois,
       file: file,
-      data_nascimento: user.data_nascimento,
       token: createToken(user),
     });
     if (!error) {
       const users = await User.create(value);
       createEnderecoUser(endereco, users.id);
-      return res.status(201).json({ id: users.id, token: users.token });
+      if (value.tipo == "estudante") {
+        createEstudante(users.id, parseInt(serie_id), user);
+        return res
+          .status(201)
+          .json({ id: users.id, tipo: user.tipo, token: users.token });
+      } else if (value.tipo == "professor") {
+        createProfessor(users.id, parseInt(materia_id), user);
+        return res
+          .status(201)
+          .json({ id: users.id, tipo: user.tipo, token: users.token });
+      }
+      return res
+        .status(201)
+        .json({ id: users.id, tipo: user.tipo, token: users.token });
     } else {
       return res.status(400).json(error.message);
     }
   } catch (err) {
-    return res.status(400).json(err.message);
+    return res.status(400).json(err.original);
   }
 };
 

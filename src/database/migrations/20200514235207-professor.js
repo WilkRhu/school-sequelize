@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("estudantes", {
+    return queryInterface.createTable("professores", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -19,28 +19,15 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      serie_id: {
+      materia_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "series",
+          model: "materias",
           key: "id",
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
-      },
-      matricula: {
-        type: Sequelize.STRING,
-      },
-      responsavel_aluno_um: {
-        type: Sequelize.STRING,
-      },
-      responsavel_aluno_dois: {
-        type: Sequelize.STRING,
-      },
-      data_nascimento: {
-        type: Sequelize.STRING,
-        allowNull: false,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -54,6 +41,6 @@ module.exports = {
   },
 
   down: (queryInterface) => {
-    return queryInterface.dropTable("estudantes");
+    return queryInterface.dropTable("professores");
   },
 };
