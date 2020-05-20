@@ -26,12 +26,12 @@ class serie_materia extends Model {
     );
   }
   static associate(models) {
-    this.hasMany(models.series, {
+    this.belongsTo(models.series, {
       foreignKey: "serie_id",
       onDelete: "cascade",
       onUpdate: "cascade",
     });
-    this.hasMany(models.materias, {
+    this.belongsTo(models.materias, {
       foreignKey: "materia_id",
       onDelete: "cascade",
       onUpdate: "cascade",

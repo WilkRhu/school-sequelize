@@ -3,7 +3,7 @@ const materiaValidation = require("../validations/materiaValidation");
 
 const show = async (req, res) => {
   try {
-    const materia = await Materia.findAll();
+    const materia = await Materia.findAll({});
     return res.status(200).json(materia);
   } catch (err) {
     return res.status(400).json(err.message);

@@ -12,8 +12,8 @@ const authUser = require("./middleware/auth");
 const aulasController = require("./controllers/aulasController");
 
 //Rotas de usuários
-routes.get("/users/:id", authUser, userController.showUserOne);
 routes.get("/users", authUser, userController.showUser);
+routes.get("/users/:id", authUser, userController.showUserOne);
 routes.post("/users", multer(multiFile).single("file"), userController.store);
 routes.patch(
   "/users/:id",
