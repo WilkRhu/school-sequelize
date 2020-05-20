@@ -44,7 +44,7 @@ const showUserOne = async (req, res) => {
 
 const showUser = async (req, res) => {
   try {
-    const user = await User.findAll();
+    const user = await User.findAll({});
     const endereco = [];
     for (var i = 0; i < user.length; i++) {
       endereco.push(await Endereco.findOne({ where: { user_id: user[i].id } }));
@@ -80,7 +80,6 @@ const createEnderecoUser = async (endereco, id) => {
 
 const createEstudante = async (user_id, serie_id, user) => {
   try {
-    if (user.tipo == "estudante") {
       await Estudante.create({
         user_id: user_id,
         serie_id: serie_id,
@@ -89,8 +88,6 @@ const createEstudante = async (user_id, serie_id, user) => {
         responsavel_aluno_dois: user.responsavel_aluno_dois,
         data_nascimento: user.data_nascimento,
       });
-      return "Estudante cadastrado(a) com sucesso!";
-    }
   } catch (err) {
     return "Erro ao cadastrar o estudante";
   }
@@ -191,10 +188,10 @@ const updateEndereco = async (req, res) => {
 };
 
 const logOn = async (req, res) => {
-  const { login, senha } = req.body;
-  if (!login || !senha) return res.status(400).json("Dados Insuficiente");
+  const { email, senha } = req.body;
+  if (!email || !senha) return res.status(400).json("Dados Insuficiente");
   try {
-    const user = await User.findOne({ where: { login: login } });
+    const user = await User.findOne({ where: { email: email } });
     if (!user)
       return res.status(400).send({ error: "Usuário e/ou senha inválidos!" });
     const pass_ok = await bcrypt.compare(senha, user.senha);
