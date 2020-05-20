@@ -4,6 +4,7 @@ const userController = require("./controllers/userController");
 const serieController = require("./controllers/serieController");
 const materiaController = require("./controllers/materiaController");
 const estudantesController = require("./controllers/estudantesController");
+const professorController = require("./controllers/professorController");
 const multer = require("multer");
 const multiFile = require("./middleware/multer");
 var upload = multer({ dest: "tmp/uploads/" });
@@ -54,5 +55,11 @@ routes.get("/estudantes", estudantesController.show);
 routes.get("/estudantes/:id", estudantesController.showOne);
 routes.patch("/estudantes/:id", estudantesController.update);
 routes.delete("/estudantes/:id", estudantesController.deleting);
+
+//Rotas Professor
+routes.get("/professor", professorController.show);
+routes.get("/professor/:id", professorController.showOne);
+routes.patch("/professor/:id", professorController.update);
+routes.delete("/professor/:id", professorController.deleting);
 
 module.exports = routes;
