@@ -4,7 +4,7 @@
     "title": "Api Educandário Sonhos de Ícaro",
     "description": "Sistema para aulas online"
   },
-  "host": "localhost:3001",
+  "host": "https://escola-sonho-de-icaro.herokuapp.com/",
   "basePath": "/",
   "tags": [],
   "schemes": [
