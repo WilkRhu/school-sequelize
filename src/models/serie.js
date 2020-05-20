@@ -5,7 +5,6 @@ class series extends Model {
     super.init(
       {
         nome: DataTypes.STRING,
-        nome_professor: DataTypes.STRING,
       },
       {
         sequelize,
