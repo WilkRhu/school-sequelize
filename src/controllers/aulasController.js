@@ -27,7 +27,11 @@ const showOne = async (req, res) => {
   try {
     const { id } = req.params;
     const aula = await Aulas.findOne({ where: { id: id } });
-    return res.status(200).json(aula);
+    if (aula) {
+      return res.status(200).json(aula);
+    } else {
+      return res.status(403).json("Aula não encontrada!");
+    }
   } catch (err) {
     return res.status(400).json(err.message);
   }

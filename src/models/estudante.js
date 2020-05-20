@@ -30,7 +30,7 @@ class estudantes extends Model {
     );
   }
   static associate(models) {
-    this.hasMany(models.series, {
+    this.belongsTo(models.series, {
       foreignKey: "serie_id",
       onDelete: "cascade",
       onUpdate: "cascade",

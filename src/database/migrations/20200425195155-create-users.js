@@ -12,7 +12,6 @@ module.exports = {
       nome: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
       },
       login: {
         type: Sequelize.STRING,
@@ -22,6 +21,7 @@ module.exports = {
       email: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
       },
 
       senha: {

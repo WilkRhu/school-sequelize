@@ -26,7 +26,7 @@ class professores extends Model {
     );
   }
   static associate(models) {
-    this.hasMany(models.users, {
+    this.belongsTo(models.users, {
       foreignKey: "user_id",
       onDelete: "cascade",
       onUpdate: "cascade",

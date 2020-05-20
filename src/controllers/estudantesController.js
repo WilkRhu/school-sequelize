@@ -14,7 +14,11 @@ const showOne = async (req, res) => {
   try {
     const { id } = req.params;
     const estudante = await Estudante.findOne({ where: { id: id } });
-    return res.status(200).json(estudante);
+    if (estudante) {
+      return res.status(200).json(estudante);
+    } else {
+      return res.status(404).json("Estudante não encontrado!")
+    }
   } catch (err) {
     return res.status(400).json(err.message);
   }
@@ -34,9 +38,9 @@ const update = async (req, res) => {
 const deleting = async (req, res) => {
   try {
     const { id } = req.params;
-    const estudante = await Estudante.findOne({where: {id: id}});
+    const estudante = await Estudante.findOne({ where: { id: id } });
     await Estudante.destroy({ where: { id: id } });
-    await User.destroy({where: {id: estudante.user_id}});
+    await User.destroy({ where: { id: estudante.user_id } });
     return res.status(200).json("Estudante Deletado com sucesso!");
   } catch (err) {
     return res.status(400).json(err.message);
