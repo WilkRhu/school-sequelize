@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
-app.use("/", routes);
+app.use("/", cors(), routes);
 app.use(cors());
 
 module.exports = app;
