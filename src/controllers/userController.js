@@ -7,9 +7,9 @@ const enderecoValidation = require("../validations/enderecoValidation");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const createToken = (user) => {
+const createToken = (user, file) => {
   return jwt.sign(
-    { email: user.email, tipo: user.tipo, nome: user.nome },
+    { email: user.email, tipo: user.tipo, nome: user.nome, file: file },
     process.env.KEY_TOKEN
   );
 };
@@ -133,7 +133,7 @@ const store = async (req, res) => {
       senha: user.senha,
       tipo: user.tipo,
       file: file,
-      token: createToken(user),
+      token: createToken(user, file),
     });
     if (!error) {
       const users = await User.create(value);
