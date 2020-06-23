@@ -18,6 +18,7 @@ const store = async (req, res) => {
     });
     if (!error) {
       const cadmateria = await Materia.create(value);
+      console.log(cadmateria);
       return res.status(201).json(cadmateria);
     } else {
       return res.status(400).json(error.message);
