@@ -7,7 +7,7 @@ const estudantesController = require("./controllers/estudantesController");
 const professorController = require("./controllers/professorController");
 const multer = require("multer");
 const multiFile = require("./middleware/multer");
-var upload = multer({ dest: "tmp/uploads/" });
+var upload = multer({ dest: "src/tmp/uploads/" });
 const authUser = require("./middleware/auth");
 const aulasController = require("./controllers/aulasController");
 
